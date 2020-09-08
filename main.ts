@@ -7,7 +7,7 @@ namespace xinabox_json
     {
         let first_curly_bracket_find = str.indexOf("{",0)
         let id_first_quotation_find = str.indexOf("\"", first_curly_bracket_find)
-        let id_second_quotation_find = str.indexOf("\"", id_first_quotation_find)
+        let id_second_quotation_find = 4
         let id: string = str.substr(id_first_quotation_find, id_second_quotation_find - id_first_quotation_find)
 
         basic.showNumber(first_curly_bracket_find)
