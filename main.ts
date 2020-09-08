@@ -10,6 +10,7 @@ namespace xinabox_json
         let id_second_quotation_find = str.indexOf("\"", id_first_quotation_find)
         let id: string = str.substr(id_first_quotation_find, id_second_quotation_find - id_first_quotation_find)
 
+        basic.showString("Hello!")
         basic.showString(id)
    
     }
