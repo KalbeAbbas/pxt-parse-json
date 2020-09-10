@@ -88,7 +88,7 @@ let num: number = 0
 
     //% blockId=getMeasure
     //% block="XinaBox get measure by uid %uid"
-    function getMeasure(uid: string): string
+    export function getMeasure(uid: string): string
     {
         let index: number = 0
         let measure: string = ""
@@ -102,7 +102,7 @@ let num: number = 0
 
     //% blockId=getScale
     //% block="XinaBox get scale by uid %uid"
-    function getScale(uid: string): string
+    export function getScale(uid: string): string
     {
         let index: number = 0
         let scale_local: string = ""
