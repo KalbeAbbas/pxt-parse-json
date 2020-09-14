@@ -39,75 +39,78 @@ let str2: string = ""
 
     // extract level one and two first key names
 
-    /*while(true)
-        {
-
-            // level_one id
-            first_quotation = str2.indexOf("\"", second_quotation + 1)
-            second_quotation = str2.indexOf("\"", first_quotation + 1)
-            sensor_id = str2.substr(first_quotation + 1, second_quotation - first_quotation - 1)
-            level_one_uid[count2] = sensor_id
-
-            // level_one first key
-            first_quotation = str2.indexOf("\"", second_quotation + 1)
-            second_quotation = str2.indexOf("\"", first_quotation + 1)
-            name = str2.substr(first_quotation + 1, second_quotation - first_quotation - 1)
-            level_one_key[count2] = name
-            basic.showString(name)
-
-            if((str2.indexOf("{", second_quotation) - 20) >= 0)
+    function init()
+    {
+        while(true)
             {
-                second_quotation = str2.indexOf("{", second_quotation) - 20
-                second_quotation = str2.indexOf(",", second_quotation)
 
-                count2++
+                // level_one id
+                first_quotation = str2.indexOf("\"", second_quotation + 1)
+                second_quotation = str2.indexOf("\"", first_quotation + 1)
+                sensor_id = str2.substr(first_quotation + 1, second_quotation - first_quotation - 1)
+                level_one_uid[count2] = sensor_id
 
-                let right_bracket: number = 0
+                // level_one first key
+                first_quotation = str2.indexOf("\"", second_quotation + 1)
+                second_quotation = str2.indexOf("\"", first_quotation + 1)
+                name = str2.substr(first_quotation + 1, second_quotation - first_quotation - 1)
+                level_one_key[count2] = name
+                basic.showString(name)
 
-                while(true)
+                if((str2.indexOf("{", second_quotation) - 20) >= 0)
                 {
+                    second_quotation = str2.indexOf("{", second_quotation) - 20
+                    second_quotation = str2.indexOf(",", second_quotation)
 
-                    // level_two id
-                    first_quotation = str2.indexOf("\"", second_quotation + 1)
-                    second_quotation = str2.indexOf("\"", first_quotation + 1)
-                    scale_id = str2.substr(first_quotation + 1, second_quotation - first_quotation - 1)
-                    level_two_uid[count] = scale_id
+                    count2++
 
-                    // level_two first key
-                    first_quotation = str2.indexOf("\"", second_quotation + 1)
-                    second_quotation = str2.indexOf("\"", first_quotation + 1)
-                    value = str2.substr(first_quotation + 1, second_quotation - first_quotation - 1)
-                    level_two_key[count] = value
+                    let right_bracket: number = 0
 
-                    second_quotation = str2.indexOf("}", second_quotation)
-
-                    count++
-
-                    if(str2.indexOf("}", second_quotation) > 0)
+                    while(true)
                     {
-                        let right_bracket = str2.indexOf("}", second_quotation)
-                        if(((str2.indexOf("}", right_bracket + 1) - right_bracket) >= 0) && ((str2.indexOf("}", right_bracket + 1) - right_bracket) < 5))
+
+                        // level_two id
+                        first_quotation = str2.indexOf("\"", second_quotation + 1)
+                        second_quotation = str2.indexOf("\"", first_quotation + 1)
+                        scale_id = str2.substr(first_quotation + 1, second_quotation - first_quotation - 1)
+                        level_two_uid[count] = scale_id
+
+                        // level_two first key
+                        first_quotation = str2.indexOf("\"", second_quotation + 1)
+                        second_quotation = str2.indexOf("\"", first_quotation + 1)
+                        value = str2.substr(first_quotation + 1, second_quotation - first_quotation - 1)
+                        level_two_key[count] = value
+
+                        second_quotation = str2.indexOf("}", second_quotation)
+
+                        count++
+
+                        if(str2.indexOf("}", second_quotation) > 0)
                         {
-                            let second_right_bracket = str2.indexOf("}", right_bracket)
-                            break
+                            let right_bracket = str2.indexOf("}", second_quotation)
+                            if(((str2.indexOf("}", right_bracket + 1) - right_bracket) >= 0) && ((str2.indexOf("}", right_bracket + 1) - right_bracket) < 5))
+                            {
+                                let second_right_bracket = str2.indexOf("}", right_bracket)
+                                break
+                            }
                         }
+
+
                     }
 
+                }
 
+
+                if((str2.indexOf("}", second_quotation) >= 0) && (str2.indexOf("}", second_quotation + 1) >= 0) && (str2.indexOf("}", second_quotation + 2) >= 0) && (str2.indexOf("{", second_quotation) < 0))
+                {
+                    break
                 }
 
             }
 
-
-            if((str2.indexOf("}", second_quotation) >= 0) && (str2.indexOf("}", second_quotation + 1) >= 0) && (str2.indexOf("}", second_quotation + 2) >= 0) && (str2.indexOf("{", second_quotation) < 0))
-            {
-                break
-            }
-
-        }
-
-        global_key1 = level_one_key[0]
-        global_key2 = level_two_key[0]*/
+            global_key1 = level_one_key[0]
+            global_key2 = level_two_key[0]
+    }
 
 
     function parse_json(str: string)
@@ -238,5 +241,7 @@ let str2: string = ""
 
         return value
     }
+
+    init()
 
 }
