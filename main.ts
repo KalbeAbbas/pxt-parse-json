@@ -29,8 +29,6 @@ let level_two_key: string[] = []
 let str2: string = ""
 
 
-    // extract level one and two first key names
-
     function init()
     {
         while(true)
@@ -109,9 +107,8 @@ let str2: string = ""
     export function load_json(json: string)
     {
         str2 = json
-        basic.showString("Bye!")
-        basic.showString(json)
 
+        // extract level one and two first key names
         init()
     }
 
