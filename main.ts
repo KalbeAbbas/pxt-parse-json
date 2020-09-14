@@ -39,7 +39,7 @@ let str2: string = ""
 
     // extract level one and two first key names
 
-    while(true)
+    /*while(true)
         {
 
             // level_one id
@@ -107,7 +107,7 @@ let str2: string = ""
         }
 
         global_key1 = level_one_key[0]
-        global_key2 = level_two_key[0]
+        global_key2 = level_two_key[0]*/
 
 
     function parse_json(str: string)
