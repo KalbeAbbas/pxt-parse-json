@@ -45,7 +45,6 @@ let str2: string = ""
                 second_quotation = str2.indexOf("\"", first_quotation + 1)
                 name = str2.substr(first_quotation + 1, second_quotation - first_quotation - 1)
                 level_one_key[count2] = name
-                basic.showString(name)
 
                 if((str2.indexOf("{", second_quotation) - 20) >= 0)
                 {
