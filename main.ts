@@ -33,6 +33,7 @@ let str2: string = ""
     export function load_json(json: string)
     {
         str2 = json
+        basic.showString("Bye!")
         basic.showString(json)
     }
 
