@@ -28,14 +28,6 @@ let level_one_key: string[] = []
 let level_two_key: string[] = []
 let str2: string = ""
 
-    //% blockId=load_json
-    //% block="XinaBox load json %json"
-    export function load_json(json: string)
-    {
-        str2 = json
-        basic.showString("Bye!")
-        basic.showString(json)
-    }
 
     // extract level one and two first key names
 
@@ -110,6 +102,17 @@ let str2: string = ""
 
             global_key1 = level_one_key[0]
             global_key2 = level_two_key[0]
+    }
+
+    //% blockId=load_json
+    //% block="XinaBox load json %json"
+    export function load_json(json: string)
+    {
+        str2 = json
+        basic.showString("Bye!")
+        basic.showString(json)
+
+        init()
     }
 
 
@@ -241,7 +244,5 @@ let str2: string = ""
 
         return value
     }
-
-    init()
 
 }
