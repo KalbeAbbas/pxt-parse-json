@@ -26,7 +26,7 @@ let level_one_uid: string[] = []
 let level_two_uid: string[] = []
 let level_one_key: string[] = []
 let level_two_key: string[] = []
-let str2: string = ""
+let str2: string = "";
 
 
     function init()
