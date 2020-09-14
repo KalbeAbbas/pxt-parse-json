@@ -18,12 +18,104 @@ let value_array: string[] = []
 let scale_array: string[] = []
 let uids: string[] = []
 let count: number = 0
+let count2: number = 0
 let num: number = 0
+let global_key1: string = ""
+let global_key2: string = ""
+let level_one_uid: string[] = []
+let level_two_uid: string[] = []
+let level_one_key: string[] = []
+let level_two_key: string[] = []
+let str2: string
 
-    //% blockId=parse_json
-    //% block="XinaBox parse json string %str"
-    export function parse_json(str: string)
+    //% blockId=load_json
+    //% block="XinaBox load json %json"
+    export function load_json(json: string)
     {
+        str2 = json
+    }
+
+    // extract level one and two first key names
+
+    while(true)
+        {
+
+            // level_one id
+            first_quotation = str2.indexOf("\"", second_quotation + 1)
+            second_quotation = str2.indexOf("\"", first_quotation + 1)
+            sensor_id = str2.substr(first_quotation + 1, second_quotation - first_quotation - 1)
+            level_one_uid[count2] = sensor_id
+
+            // level_one first key
+            first_quotation = str2.indexOf("\"", second_quotation + 1)
+            second_quotation = str2.indexOf("\"", first_quotation + 1)
+            name = str2.substr(first_quotation + 1, second_quotation - first_quotation - 1)
+            level_one_key[count2] = name
+
+            if((str2.indexOf("{", second_quotation) - 20) >= 0)
+            {
+                second_quotation = str2.indexOf("{", second_quotation) - 20
+                second_quotation = str2.indexOf(",", second_quotation)
+
+                count2++
+
+                let right_bracket: number = 0
+
+                while(true)
+                {
+
+                    // level_two id
+                    first_quotation = str2.indexOf("\"", second_quotation + 1)
+                    second_quotation = str2.indexOf("\"", first_quotation + 1)
+                    scale_id = str2.substr(first_quotation + 1, second_quotation - first_quotation - 1)
+                    level_two_uid[count] = scale_id
+
+                    // level_two first key
+                    first_quotation = str2.indexOf("\"", second_quotation + 1)
+                    second_quotation = str2.indexOf("\"", first_quotation + 1)
+                    value = str2.substr(first_quotation + 1, second_quotation - first_quotation - 1)
+                    level_two_key[count] = value
+
+                    second_quotation = str2.indexOf("}", second_quotation)
+
+                    count++
+
+                    if(str2.indexOf("}", second_quotation) > 0)
+                    {
+                        let right_bracket = str2.indexOf("}", second_quotation)
+                        if(((str2.indexOf("}", right_bracket + 1) - right_bracket) >= 0) && ((str2.indexOf("}", right_bracket + 1) - right_bracket) < 5))
+                        {
+                            let second_right_bracket = str2.indexOf("}", right_bracket)
+                            break
+                        }
+                    }
+
+
+                }
+
+            }
+
+
+            if((str2.indexOf("}", second_quotation) >= 0) && (str2.indexOf("}", second_quotation + 1) >= 0) && (str2.indexOf("}", second_quotation + 2) >= 0) && (str2.indexOf("{", second_quotation) < 0))
+            {
+                break
+            }
+
+        }
+
+        global_key1 = level_one_key[0]
+        global_key2 = level_two_key[0]
+
+
+    function parse_json(str: string)
+    {
+
+        // Search for particular key
+
+        second_quotation = 0
+
+        count = 0
+        count2 = 0
 
         while(true)
         {
@@ -32,86 +124,116 @@ let num: number = 0
             first_quotation = str.indexOf("\"", second_quotation + 1)
             second_quotation = str.indexOf("\"", first_quotation + 1)
             sensor_id = str.substr(first_quotation + 1, second_quotation - first_quotation - 1)
+            level_one_uid[count2] = sensor_id
 
             // sensor name
-            name_key_index = str.indexOf("\"name\"", second_quotation + 1)
-            name_string = "\"name\"".length + name_key_index
+            name_key_index = str.indexOf("\"" + global_key1 + "\"", second_quotation + 1)
+            name_string = ("\"" + global_key1 + "\"").length + name_key_index
             first_quotation = str.indexOf("\"", name_string + 1)
             second_quotation = str.indexOf("\"", first_quotation + 1)
             name = str.substr(first_quotation + 1, second_quotation - first_quotation - 1)
+            level_one_key[count2] = name
 
-
-            while(true)
+            if((str.indexOf("{", second_quotation) - 20) >= 0)
             {
+                second_quotation = str.indexOf("{", second_quotation) - 20
+                second_quotation = str.indexOf(",", second_quotation)
 
-                // scale id
-                first_quotation = str.indexOf("\"", second_quotation + 1)
-                second_quotation = str.indexOf("\"", first_quotation + 1)
-                scale_id = str.substr(first_quotation + 1, second_quotation - first_quotation - 1)
-                uids[count] = scale_id
+                count2++
 
-                // sensor scale
-                scale_key_index = str.indexOf("\"scale\"", second_quotation)
-                scale_string = "\"scale\"".length + scale_key_index
-                first_quotation = str.indexOf("\"", scale_string + 1) 
-                second_quotation = str.indexOf("\"", first_quotation + 1)
-                scale = str.substr(first_quotation + 1, second_quotation - first_quotation - 1)
-                scale_array[count] =  scale
+                let right_bracket: number = 0
 
-                // sensor value
-                value_key_index = str.indexOf("\"value\"", second_quotation)
-                value_string = "\"value\"".length + value_key_index
-                first_quotation = str.indexOf("\"", value_string + 1)
-                second_quotation = str.indexOf("\"", first_quotation + 1)
-                value = str.substr(first_quotation + 1, second_quotation - first_quotation - 1)
-                value_array[count] = value
-
-                count++
-
-                if((str.indexOf("}}", second_quotation) - second_quotation) < 5)
+                while(true)
                 {
-                    break
+
+                    // scale id
+                    first_quotation = str.indexOf("\"", second_quotation + 1)
+                    second_quotation = str.indexOf("\"", first_quotation + 1)
+                    scale_id = str.substr(first_quotation + 1, second_quotation - first_quotation - 1)
+                    level_two_uid[count] = scale_id
+
+                    // sensor value
+                    value_key_index = str.indexOf("\"" + global_key2 + "\"", second_quotation)
+                    value_string = ("\"" + global_key2 + "\"").length + value_key_index
+                    first_quotation = str.indexOf("\"", value_string + 1)
+                    second_quotation = str.indexOf("\"", first_quotation + 1)
+                    value = str.substr(first_quotation + 1, second_quotation - first_quotation - 1)
+                    level_two_key[count] = value
+
+                    second_quotation = str.indexOf("}", second_quotation)
+
+
+
+                    count++
+
+                    if(str.indexOf("}", second_quotation) > 0)
+                    {
+                        let right_bracket = str.indexOf("}", second_quotation)
+                        if(((str.indexOf("}", right_bracket + 1) - right_bracket) >= 0) && ((str.indexOf("}", right_bracket + 1) - right_bracket) < 5))
+                        {
+                            let second_right_bracket = str.indexOf("}", right_bracket)
+                            break
+                        }
+                    }
+
+
                 }
 
             }
 
-            if((str.indexOf("}", second_quotation) > 0) && (str.indexOf("}", second_quotation + 1) > 0) && (str.indexOf("}", second_quotation + 2) > 0) && (str.indexOf("{", second_quotation) < 0))
+
+            if((str.indexOf("}", second_quotation) >= 0) && (str.indexOf("}", second_quotation + 1) >= 0) && (str.indexOf("}", second_quotation + 2) >= 0) && (str.indexOf("{", second_quotation) < 0))
             {
                 break
             }
 
         }
 
-   
     }
 
 
-    //% blockId=getMeasure
-    //% block="XinaBox get measure by uid %uid"
-    export function getMeasure(uid: string): string
+    //% blockId=getLevelOneValue
+    //% block="XinaBox get level one value of uid %uid and key %key"
+    export function getLevelOneValue(uid: string, key: string)
     {
         let index: number = 0
-        let measure: string = ""
+        let value: string = ""
 
-        index = uids.indexOf(uid)
+        count = 0
+        count2 = 0
+        second_quotation = 0
 
-        if(index >= 0)measure = value_array[index]
-        
-        return measure
+        global_key1  = key
+
+        parse_json(str2)
+
+        index = level_one_uid.indexOf(uid)
+
+        if(index >= 0)value = level_one_key[index]
+
+        return value
     }
 
-    //% blockId=getScale
-    //% block="XinaBox get scale by uid %uid"
-    export function getScale(uid: string): string
+    //% blockId=getLeveTwoValue
+    //% block="XinaBox get level two value of uid %uid and key %key"
+    export function getLevelTwoValue(uid: string, key: string)
     {
         let index: number = 0
-        let scale_local: string = ""
+        let value: string = ""
 
-        index = uids.indexOf(uid)
+        count = 0
+        count2 = 0
+        second_quotation = 0
 
-        if(index >= 0)scale_local = scale_array[index]
-        
-        return scale_local
+        global_key2  = key
+
+        parse_json(str2)
+
+        index = level_two_uid.indexOf(uid)
+
+        if(index >= 0)value = level_two_key[index]
+
+        return value
     }
 
 }
